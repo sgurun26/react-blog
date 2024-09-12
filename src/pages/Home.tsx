@@ -1,30 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import BlogPost from "../components/BlogPost";
+import { postType } from "../types";
 
 const Home = () => {
+    const [posts,setPosts] = useState<postType[]>([]);
+
+    useEffect(()=>{
+        const fetchPosts = async()=>{
+            const data = await fetch("http://localhost:8000/api/posts");
+            const res = await data.json()
+            setPosts(res.data)
+        }
+        fetchPosts()
+    },[])
   return (
-    <section className="py-28 relative bg-[#1e72bd]">
-      <div className="relative z-10 mx-auto px-4 md:text-center md:px-8">
-        <div className="max-w-3xl md:mx-auto">
-          <h1 className="text-white text-3xl font-extrabold sm:text-4xl">
-            Exploring Maine Coon Cats: Graceful Giants of Feline Majesty
-          </h1>
-          <p className="text-[rgba(255,255,255,0.8)] text-[20px] my-[2rem]">
-            Did you know that the average American household spends around $770
-            per year on their pets?1 Of course, the majority of that is likely
-            spent on necessities, such as food and vet care.
-          </p>
+    <>
+    <section className='mt-8'>
+        <div className='text-center'>
+            <h1 className="text-gray-800 text-3xl font-extrabold sm:text-4xl">Latest blog posts</h1>
+            <p className="text-gray-600  my-3">Blogs that are loved by the community. Updated every hour.</p>
         </div>
-        <div className="mt-4">
-          <a
-            href="/"
-            className="inline-block py-4 px-8 text-gray-800 text-[20px] font-[600] bg-white duration-150 hover:bg-gray-100 active:bg-gray-200 rounded-full"
-          >
-            Learn More
-          </a>
-        </div>
-      </div>
-      <div className="absolute top-0 w-full h-full"></div>
     </section>
+
+   <section className='px-[5%]'>
+        {
+            posts.map((x)=>{
+                return <BlogPost key={x._id} title={x.title} id={x._id}/>
+            })
+        }
+   </section>
+    </>
   );
 };
 
