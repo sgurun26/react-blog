@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home';
 import BlogDetail from './pages/BlogDetail';
+import Tictactoe from './pages/Tictactoe';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/:id' element={<BlogDetail/>} />
+        <Route path='/game' element={<Tictactoe/>} />
       </Routes>
     </div>
   );

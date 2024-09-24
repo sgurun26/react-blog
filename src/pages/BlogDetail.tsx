@@ -9,7 +9,7 @@ const BlogDetail = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const data = await fetch(`http://localhost:8000/api/posts/${id}`);
+      const data = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/posts/${id}`);
       const res = await data.json();
       setPost(res.data);
       setLoading(false);

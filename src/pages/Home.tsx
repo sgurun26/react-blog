@@ -8,13 +8,10 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const data = await fetch("http://localhost:8000/api/posts");
+      const data = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/posts`);
       const res = await data.json();
-      //its not needed but just to show loading indicator
-      setTimeout((x) => {
         setPosts(res.data);
         setLoading(false);
-      }, 1000);
     };
     fetchPosts();
   }, []);
